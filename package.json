@@ -1,0 +1,23 @@
+{
+  "name": "groups-page-sendchatmessage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.1030.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Harold-coder/pure-poker-groupspage-sendChatMessage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Harold-coder/pure-poker-groupspage-sendChatMessage/issues"
+  },
+  "homepage": "https://github.com/Harold-coder/pure-poker-groupspage-sendChatMessage#readme"
+}
