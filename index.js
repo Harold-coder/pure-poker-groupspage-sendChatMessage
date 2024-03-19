@@ -56,6 +56,8 @@ exports.handler = async (event) => {
     });
 
     // Log the total number of connections to broadcast to
+    console.log("Group:", group);
+    console.log("Connectiondata:", connectionData);
     console.log(`Broadcasting message to ${connectionData.Items.length} connections for groupId: ${groupId}`);
 
     const broadcastPromises = connectionData.Items.map(async (item) => {
