@@ -47,7 +47,7 @@ exports.handler = async (event) => {
         FilterExpression: "groupId = :groupId AND userId IN (:users)",
         ExpressionAttributeValues: {
             ":groupId": groupId,
-            ":users": dynamoDb.createSet(group.usersConnected)
+            ":users": dynamoDb.createSet(group.usersConnected).values // If usersConnected is a set
         }
     }).promise();
 
