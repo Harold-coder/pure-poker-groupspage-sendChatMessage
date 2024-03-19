@@ -77,6 +77,9 @@ exports.handler = async (event) => {
                         Key: { connectionId: item.connectionId }
                     }).promise();
                 }
+                else {
+                    console.log(error);
+                }
             });
         }
     });
