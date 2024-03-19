@@ -44,10 +44,9 @@ exports.handler = async (event) => {
     // Retrieve all connections of users currently in the chat to broadcast the message
     const connectionData = await dynamoDb.scan({
         TableName: connectionsTableName,
-        FilterExpression: "groupId = :groupId AND userId IN (:users)",
+        FilterExpression: "groupId = :groupId",
         ExpressionAttributeValues: {
             ":groupId": groupId,
-            ":users": group.usersConnected
         }        
     }).promise();
 
