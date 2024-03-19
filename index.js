@@ -47,8 +47,8 @@ exports.handler = async (event) => {
         FilterExpression: "groupId = :groupId AND userId IN (:users)",
         ExpressionAttributeValues: {
             ":groupId": groupId,
-            ":users": dynamoDb.createSet(group.usersConnected).values // If usersConnected is a set
-        }
+            ":users": group.usersConnected // Directly use the array if it's already in the expected format
+        }        
     }).promise();
 
     const apiGatewayManagementApi = new AWS.ApiGatewayManagementApi({
