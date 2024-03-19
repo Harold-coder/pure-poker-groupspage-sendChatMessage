@@ -18,7 +18,7 @@ exports.handler = async (event) => {
         return { statusCode: 404, body: JSON.stringify({ message: "Group not found." }) };
     }
 
-    if (!group.members.includes(userId)) {
+    if (!group.membersList.includes(userId)) {
         return { statusCode: 403, body: JSON.stringify({ message: "User is not a member of the group." }) };
     }
 
@@ -47,7 +47,7 @@ exports.handler = async (event) => {
         FilterExpression: "groupId = :groupId AND userId IN (:users)",
         ExpressionAttributeValues: {
             ":groupId": groupId,
-            ":users": group.usersConnected // Directly use the array if it's already in the expected format
+            ":users": group.usersConnected
         }        
     }).promise();
 
