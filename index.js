@@ -7,6 +7,11 @@ exports.handler = async (event) => {
     const { groupId, userId, message } = JSON.parse(event.body);
     const connectionId = event.requestContext.connectionId;
 
+    console.log("Groupid:", groupId);
+    console.log("userId:", userId);
+    console.log("message:", message);
+
+
     // Validate user is part of the group and is in the chat
     const groupResponse = await dynamoDb.get({
         TableName: groupsTableName,
