@@ -59,14 +59,7 @@ exports.handler = async (event) => {
         endpoint: process.env.WEBSOCKET_ENDPOINT
     });
 
-    // Log the total number of connections to broadcast to
-    console.log("Group:", group);
-    console.log("Connectiondata:", connectionData);
-    console.log(`Broadcasting message to ${connectionData.Items.length} connections for groupId: ${groupId}`);
-
     const broadcastPromises = connectionData.Items.map(async (item) => {
-        // Log before attempting to post to each connection
-        console.log(`Attempting to send message to connection: ${item.connectionId}`);
 
         try {
             await apiGatewayManagementApi.postToConnection({
@@ -75,15 +68,12 @@ exports.handler = async (event) => {
                     action: 'messageReceived',
                     message: {
                         userId,
-                        content: message,
+                        message: message,
                         timestamp: new Date().toISOString(),
                     },
                     groupId
                 })
             }).promise();
-
-            // Log success after sending the message
-            console.log(`Successfully sent message to connection: ${item.connectionId}`);
         } catch (error) {
             console.error(`Error sending message to connection: ${item.connectionId}`, error);
 
@@ -99,9 +89,6 @@ exports.handler = async (event) => {
     });
 
     await Promise.all(broadcastPromises);
-
-    // Log completion of the broadcasting process
-    console.log(`Completed broadcasting messages for groupId: ${groupId}`);
-
+    
     return { statusCode: 200, body: JSON.stringify({ message: "Message sent." }) };
 };
