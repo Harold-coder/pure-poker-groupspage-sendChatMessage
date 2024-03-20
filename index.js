@@ -46,6 +46,13 @@ exports.handler = async (event) => {
         ReturnValues: "UPDATED_NEW"
     }).promise();
 
+    // After updating, fetch the updated messages array
+    const updatedGroupResponse = await dynamoDb.get({
+        TableName: groupsTableName,
+        Key: { groupId },
+    }).promise();
+    const updatedMessages = updatedGroupResponse.Item.messages;
+
     // Retrieve all connections of users currently in the chat to broadcast the message
     const connectionData = await dynamoDb.scan({
         TableName: connectionsTableName,
@@ -66,11 +73,7 @@ exports.handler = async (event) => {
                 ConnectionId: item.connectionId,
                 Data: JSON.stringify({
                     action: 'messageReceived',
-                    message: {
-                        userId,
-                        message: message,
-                        timestamp: new Date().toISOString(),
-                    },
+                    messages: updatedMessages,
                     groupId
                 })
             }).promise();
